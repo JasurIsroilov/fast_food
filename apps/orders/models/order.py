@@ -10,6 +10,7 @@ class Order(SafeDeleteModel):
     STATUS_CHOICES = (
         ('ordered', _('Ordered')),
         ('accepted', _('Accepted')),
+        ('cooking', _('Cooking')),
         ('sent', _('Sent')),
         ('completed', _('Completed'))
     )
@@ -18,6 +19,8 @@ class Order(SafeDeleteModel):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=False, blank=False)
     longitude = models.DecimalField(max_digits=22, decimal_places=16, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    cooked_at = models.DateTimeField(null=True)
     delivery_at = models.DateTimeField(blank=True, null=False)
 
     user = models.ForeignKey("account.User", related_name="orders", on_delete=models.PROTECT)

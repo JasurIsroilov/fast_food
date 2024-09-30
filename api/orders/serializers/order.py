@@ -43,6 +43,7 @@ class OrderSerializer(serializers.ModelSerializer):
             "longitude",
             "created_at",
             "delivery_at",
+            "cooked_at",
             "user",
             "fastfood",
         ]

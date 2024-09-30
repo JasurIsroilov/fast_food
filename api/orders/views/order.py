@@ -89,8 +89,12 @@ class OrderViewSet(viewsets.ModelViewSet):
             order_serializer.is_valid(raise_exception=True)
         except ValidationError as err:
             return Response({"message": str(err)}, status=status.HTTP_400_BAD_REQUEST)
+
+        delivery_at, cooked_at = count_delivery_time(data=request.data)
+
         new_order = order_serializer.save(user=request.user,
-                                          delivery_at=count_delivery_time(data=request.data))
+                                          delivery_at=delivery_at,
+                                          cooked_at=cooked_at)
 
         for item in order_items:
             item["order"] = new_order.id
